@@ -58,39 +58,39 @@
         </form>
     </div>
     <script>
-        const loginform = document.getelementbyid('login-form');
-        const loginbutton = document.getelementbyid('login-button');
-        const errormessage = document.getelementbyid('error-message');
-        const usernameinput = document.getelementbyid('username');
-        const passwordinput = document.getelementbyid('password');
+        const loginForm = document.getElementById('login-form');
+        const loginButton = document.getElementById('login-button');
+        const errorMessage = document.getElementById('error-message');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
 
-        loginbutton.addeventlistener('click', (e) => {
-            e.preventdefault();
-            const username = usernameinput.value.trim();
-            const password = passwordinput.value.trim();
+        loginButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value.trim();
             if (username && password) {
-                // send login request to server
                 fetch('./login', {
-                    method: 'post',
+                    method: 'POST',
                     headers: {
-                        'content-type': 'application/json'
+                        'Content-Type': 'application/json'
                     },
-                    body: json.stringify({ username, password })
+                    body: JSON.stringify({ username, password })
                 })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
                         window.location.href = './dashboard';
                     } else {
-                        errormessage.textcontent = data.message;
+                        errorMessage.textContent = data.message;
                     }
                 })
                 .catch(error => {
-                    errormessage.textcontent = 'an error occurred. please try again.';
+                    errorMessage.textContent = 'An error occurred. Please try again.';
                 });
             } else {
-                errormessage.textcontent = 'please fill in all fields.';
+                errorMessage.textContent = 'Please fill in all fields.';
             }
         });
     </script>
+</body>
 </html>
