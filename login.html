@@ -1,0 +1,96 @@
+
+<html>
+<head>
+    <title>nail art shop login</title>
+    <style>
+        body {
+            font-family: arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .login-container {
+            width: 300px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .login-form {
+            margin-top: 20px;
+        }
+        .login-form input {
+            width: 100%;
+            height: 40px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .login-form button {
+            width: 100%;
+            height: 40px;
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-form button:hover {
+            background-color: #3e8e41;
+        }
+        .error-message {
+            color: #f00;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>nail art shop login</h2>
+        <form id="login-form" class="login-form">
+            <input type="text" id="username" placeholder="username">
+            <input type="password" id="password" placeholder="password">
+            <button id="login-button">login</button>
+            <div id="error-message" class="error-message"></div>
+        </form>
+    </div>
+    <script>
+        const loginform = document.getelementbyid('login-form');
+        const loginbutton = document.getelementbyid('login-button');
+        const errormessage = document.getelementbyid('error-message');
+        const usernameinput = document.getelementbyid('username');
+        const passwordinput = document.getelementbyid('password');
+
+        loginbutton.addeventlistener('click', (e) => {
+            e.preventdefault();
+            const username = usernameinput.value.trim();
+            const password = passwordinput.value.trim();
+            if (username && password) {
+                // send login request to server
+                fetch('./login', {
+                    method: 'post',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: json.stringify({ username, password })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = './dashboard';
+                    } else {
+                        errormessage.textcontent = data.message;
+                    }
+                })
+                .catch(error => {
+                    errormessage.textcontent = 'an error occurred. please try again.';
+                });
+            } else {
+                errormessage.textcontent = 'please fill in all fields.';
+            }
+        });
+    </script>
+</html>
